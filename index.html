@@ -5,519 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>ROZIK OFF — Brawl Stars Клуб</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
-            background: #0b0e1a;
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            padding: 12px;
-        }
-
-        .app {
-            max-width: 480px;
-            width: 100%;
-            background: linear-gradient(145deg, #13182b, #0b0e1a);
-            border-radius: 28px;
-            padding: 18px 14px 26px;
-            border: 1px solid rgba(255, 215, 0, 0.06);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .app::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                radial-gradient(1px 1px at 15% 20%, rgba(255, 255, 255, 0.2), transparent),
-                radial-gradient(1px 1px at 35% 60%, rgba(255, 255, 255, 0.15), transparent),
-                radial-gradient(1px 1px at 70% 10%, rgba(255, 255, 255, 0.2), transparent),
-                radial-gradient(1px 1px at 90% 80%, rgba(255, 255, 255, 0.15), transparent);
-            background-size: 200px 200px;
-            pointer-events: none;
-            z-index: 0;
-            animation: twinkle 5s ease-in-out infinite alternate;
-        }
-
-        @keyframes twinkle {
-            0% { opacity: 0.3; }
-            100% { opacity: 1; }
-        }
-
-        .club-header {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 12px 0 10px;
-            border-bottom: 1px solid rgba(255, 215, 0, 0.06);
-            margin-bottom: 16px;
-        }
-
-        .club-badge {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 6px;
-            background: radial-gradient(circle at 30% 30%, #f7c948, #d4891b);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.12);
-            border: 2px solid rgba(255, 215, 0, 0.12);
-        }
-
-        .club-name {
-            font-size: 22px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #f7c948, #f5a623);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 0.5px;
-        }
-
-        .club-tag {
-            font-size: 12px;
-            color: #8892b0;
-            letter-spacing: 1px;
-            margin-top: 2px;
-        }
-
-        .club-stats {
-            display: flex;
-            justify-content: center;
-            gap: 14px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 4px 14px;
-            border-radius: 30px;
-            font-size: 12px;
-            color: #a8b2d1;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
-        .stat-item span {
-            color: #f5a623;
-            font-weight: 600;
-        }
-
-        .members-title {
-            position: relative;
-            z-index: 1;
-            font-size: 16px;
-            font-weight: 600;
-            color: #ccd6f6;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .members-title small {
-            font-weight: 400;
-            font-size: 12px;
-            color: #8892b0;
-            margin-left: auto;
-        }
-
-        .member-list {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            max-height: 460px;
-            overflow-y: auto;
-            padding-right: 3px;
-        }
-
-        .member-list::-webkit-scrollbar {
-            width: 2px;
-        }
-        .member-list::-webkit-scrollbar-thumb {
-            background: #f5a623;
-            border-radius: 10px;
-        }
-
-        .member-card {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 14px;
-            padding: 10px 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border: 1px solid rgba(255, 215, 0, 0.04);
-            transition: all 0.2s;
-            cursor: pointer;
-        }
-
-        .member-card:active {
-            transform: scale(0.97);
-            background: rgba(255, 215, 0, 0.04);
-        }
-
-        .member-avatar {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 215, 0, 0.15);
-            flex-shrink: 0;
-            background: #1a1f33;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            font-weight: 700;
-            color: #f5a623;
-        }
-
-        .member-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .member-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: #e6edf3;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-
-        .member-role {
-            font-size: 9px;
-            font-weight: 600;
-            padding: 1px 8px;
-            border-radius: 30px;
-            background: rgba(255, 215, 0, 0.08);
-            color: #f5a623;
-        }
-
-        .member-role.president {
-            background: rgba(255, 215, 0, 0.15);
-            color: #ffd700;
-        }
-
-        .member-role.vice {
-            background: rgba(255, 107, 107, 0.12);
-            color: #ff6b6b;
-        }
-
-        .member-role.senior {
-            background: rgba(78, 205, 196, 0.12);
-            color: #4ecdc4;
-        }
-
-        .member-role.member {
-            background: rgba(149, 225, 211, 0.08);
-            color: #95e1d3;
-        }
-
-        .member-trophies {
-            font-size: 11px;
-            color: #8892b0;
-        }
-
-        .member-trophies span {
-            color: #f5a623;
-            font-weight: 600;
-        }
-
-        .online-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #00c853;
-            box-shadow: 0 0 10px #00c85366;
-            flex-shrink: 0;
-            animation: pulse-dot 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 0.4; transform: scale(0.9); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.82);
-            backdrop-filter: blur(12px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-            padding: 16px;
-            animation: fadeIn 0.2s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal {
-            background: linear-gradient(160deg, #1a1f33, #0d1020);
-            border-radius: 24px;
-            max-width: 400px;
-            width: 100%;
-            padding: 24px 18px 20px;
-            border: 1px solid rgba(255, 215, 0, 0.06);
-            box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
-            animation: slideUp 0.25s ease;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal::-webkit-scrollbar {
-            width: 2px;
-        }
-        .modal::-webkit-scrollbar-thumb {
-            background: #f5a623;
-            border-radius: 10px;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .modal-close {
-            float: right;
-            background: rgba(255, 255, 255, 0.03);
-            border: none;
-            color: #8892b0;
-            font-size: 20px;
-            cursor: pointer;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 4px;
-            transition: all 0.2s;
-        }
-
-        .modal-close:hover {
-            background: rgba(255, 255, 255, 0.06);
-            color: #fff;
-        }
-
-        .modal-avatar-section {
-            text-align: center;
-            margin-bottom: 8px;
-        }
-
-        .modal-avatar {
-            width: 72px;
-            height: 72px;
-            border-radius: 50%;
-            border: 3px solid #f5a623;
-            margin: 0 auto 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            font-weight: 700;
-            background: #13182b;
-            color: #f5a623;
-            box-shadow: 0 0 30px rgba(245, 166, 35, 0.04);
-        }
-
-        .modal-name {
-            font-size: 20px;
-            font-weight: 700;
-            color: #e6edf3;
-        }
-
-        .modal-tag {
-            font-size: 12px;
-            color: #8892b0;
-            letter-spacing: 0.5px;
-            margin-top: 2px;
-        }
-
-        .modal-role {
-            font-size: 13px;
-            font-weight: 600;
-            margin-top: 4px;
-        }
-
-        .modal-divider {
-            height: 1px;
-            background: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.06), transparent);
-            margin: 14px 0;
-        }
-
-        .modal-stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-
-        .modal-stat {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px;
-            padding: 10px 6px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.02);
-        }
-
-        .modal-stat .label {
-            font-size: 8px;
-            color: #8892b0;
-            text-transform: uppercase;
-            letter-spacing: 0.6px;
-        }
-
-        .modal-stat .value {
-            font-size: 15px;
-            font-weight: 700;
-            color: #f5a623;
-            margin-top: 3px;
-        }
-
-        .modal-stat .value.trophies {
-            color: #ffd700;
-        }
-
-        .modal-stat .value.rank {
-            color: #4ecdc4;
-        }
-
-        .modal-info-section {
-            margin-top: 12px;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.02);
-        }
-
-        .modal-info-section .info-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 3px 0;
-            font-size: 12px;
-            color: #ccd6f6;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-        }
-
-        .modal-info-section .info-row:last-child {
-            border-bottom: none;
-        }
-
-        .modal-info-section .info-row .label {
-            color: #8892b0;
-        }
-
-        .modal-info-section .info-row .value {
-            color: #e6edf3;
-            font-weight: 500;
-        }
-
-        .modal-info-section .info-row .value.gold {
-            color: #ffd700;
-        }
-
-        .modal-info-section .info-row .value.hours {
-            color: #4ecdc4;
-            font-weight: 700;
-        }
-
-        .loading {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 300px;
-            gap: 14px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .spinner {
-            width: 38px;
-            height: 38px;
-            border: 3px solid rgba(255, 215, 0, 0.06);
-            border-top-color: #f5a623;
-            border-radius: 50%;
-            animation: spin 0.9s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .loading p {
-            color: #8892b0;
-            font-size: 13px;
-            letter-spacing: 0.5px;
-        }
-
-        .refresh-btn {
-            margin-top: 16px;
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 40px;
-            background: linear-gradient(135deg, #f5a623, #d4891b);
-            color: #fff;
-            font-weight: 600;
-            font-size: 14px;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-            z-index: 1;
-            box-shadow: 0 0 20px rgba(245, 166, 35, 0.08);
-        }
-
-        .refresh-btn:active {
-            transform: scale(0.97);
-        }
-
-        @media (max-width: 420px) {
-            .club-name { font-size: 20px; }
-            .club-badge { width: 52px; height: 52px; font-size: 24px; }
-            .member-card { padding: 8px 10px; }
-            .member-avatar { width: 36px; height: 36px; font-size: 14px; }
-            .member-name { font-size: 13px; }
-            .modal { padding: 18px 14px 16px; }
-            .modal-avatar { width: 60px; height: 60px; font-size: 24px; }
-            .modal-name { font-size: 18px; }
-            .modal-stats-grid { gap: 6px; }
-            .modal-stat { padding: 8px 4px; }
-            .modal-stat .value { font-size: 13px; }
-            .modal-info-section .info-row { font-size: 11px; }
-        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,'Segoe UI',sans-serif;background:#0b0e1a;color:#fff;min-height:100vh;display:flex;justify-content:center;padding:12px}
+        .app{max-width:480px;width:100%;background:linear-gradient(145deg,#13182b,#0b0e1a);border-radius:28px;padding:18px 14px 26px;border:1px solid rgba(255,215,0,0.06);position:relative;overflow:hidden}
+        .app::before{content:'';position:absolute;inset:0;background-image:radial-gradient(1px 1px at 15% 20%,rgba(255,255,255,0.2),transparent),radial-gradient(1px 1px at 35% 60%,rgba(255,255,255,0.15),transparent),radial-gradient(1px 1px at 70% 10%,rgba(255,255,255,0.2),transparent),radial-gradient(1px 1px at 90% 80%,rgba(255,255,255,0.15),transparent);background-size:200px 200px;pointer-events:none;z-index:0;animation:twinkle 5s ease-in-out infinite alternate}
+        @keyframes twinkle{0%{opacity:0.3}100%{opacity:1}}
+        .club-header{position:relative;z-index:1;text-align:center;padding:12px 0 10px;border-bottom:1px solid rgba(255,215,0,0.06);margin-bottom:16px}
+        .club-badge{width:60px;height:60px;margin:0 auto 6px;background:radial-gradient(circle at 30% 30%,#f7c948,#d4891b);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 0 30px rgba(255,215,0,0.12);border:2px solid rgba(255,215,0,0.12)}
+        .club-name{font-size:22px;font-weight:700;background:linear-gradient(135deg,#f7c948,#f5a623);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:0.5px}
+        .club-tag{font-size:12px;color:#8892b0;letter-spacing:1px;margin-top:2px}
+        .club-stats{display:flex;justify-content:center;gap:14px;margin-top:10px;flex-wrap:wrap}
+        .stat-item{background:rgba(255,255,255,0.03);padding:4px 14px;border-radius:30px;font-size:12px;color:#a8b2d1;border:1px solid rgba(255,255,255,0.03)}
+        .stat-item span{color:#f5a623;font-weight:600}
+        .members-title{position:relative;z-index:1;font-size:16px;font-weight:600;color:#ccd6f6;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+        .members-title small{font-weight:400;font-size:12px;color:#8892b0;margin-left:auto}
+        .member-list{position:relative;z-index:1;display:flex;flex-direction:column;gap:8px;max-height:460px;overflow-y:auto;padding-right:3px}
+        .member-list::-webkit-scrollbar{width:2px}
+        .member-list::-webkit-scrollbar-thumb{background:#f5a623;border-radius:10px}
+        .member-card{background:rgba(255,255,255,0.02);border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:12px;border:1px solid rgba(255,215,0,0.04);transition:all 0.2s;cursor:pointer}
+        .member-card:active{transform:scale(0.97);background:rgba(255,215,0,0.04)}
+        .member-avatar{width:42px;height:42px;border-radius:50%;border:2px solid rgba(255,215,0,0.15);flex-shrink:0;background:#1a1f33;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#f5a623}
+        .member-info{flex:1;min-width:0}
+        .member-name{font-size:14px;font-weight:600;color:#e6edf3;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+        .member-role{font-size:9px;font-weight:600;padding:1px 8px;border-radius:30px;background:rgba(255,215,0,0.08);color:#f5a623}
+        .member-role.president{background:rgba(255,215,0,0.15);color:#ffd700}
+        .member-role.vice{background:rgba(255,107,107,0.12);color:#ff6b6b}
+        .member-role.senior{background:rgba(78,205,196,0.12);color:#4ecdc4}
+        .member-role.member{background:rgba(149,225,211,0.08);color:#95e1d3}
+        .member-trophies{font-size:11px;color:#8892b0}
+        .member-trophies span{color:#f5a623;font-weight:600}
+        .online-dot{width:8px;height:8px;border-radius:50%;background:#00c853;box-shadow:0 0 10px #00c85366;flex-shrink:0;animation:pulse-dot 2s ease-in-out infinite}
+        @keyframes pulse-dot{0%,100%{opacity:0.4;transform:scale(0.9)}50%{opacity:1;transform:scale(1.2)}}
+        .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.82);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;z-index:999;padding:16px;animation:fadeIn 0.2s ease}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        .modal{background:linear-gradient(160deg,#1a1f33,#0d1020);border-radius:24px;max-width:400px;width:100%;padding:24px 18px 20px;border:1px solid rgba(255,215,0,0.06);box-shadow:0 0 60px rgba(0,0,0,0.6);animation:slideUp 0.25s ease;max-height:90vh;overflow-y:auto}
+        .modal::-webkit-scrollbar{width:2px}
+        .modal::-webkit-scrollbar-thumb{background:#f5a623;border-radius:10px}
+        @keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+        .modal-close{float:right;background:rgba(255,255,255,0.03);border:none;color:#8892b0;font-size:20px;cursor:pointer;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:4px;transition:all 0.2s}
+        .modal-close:hover{background:rgba(255,255,255,0.06);color:#fff}
+        .modal-avatar-section{text-align:center;margin-bottom:8px}
+        .modal-avatar{width:72px;height:72px;border-radius:50%;border:3px solid #f5a623;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;background:#13182b;color:#f5a623;box-shadow:0 0 30px rgba(245,166,35,0.04)}
+        .modal-name{font-size:20px;font-weight:700;color:#e6edf3}
+        .modal-tag{font-size:12px;color:#8892b0;letter-spacing:0.5px;margin-top:2px}
+        .modal-role{font-size:13px;font-weight:600;margin-top:4px}
+        .modal-divider{height:1px;background:linear-gradient(to right,transparent,rgba(255,215,0,0.06),transparent);margin:14px 0}
+        .modal-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+        .modal-stat{background:rgba(255,255,255,0.02);border-radius:12px;padding:10px 6px;text-align:center;border:1px solid rgba(255,255,255,0.02)}
+        .modal-stat .label{font-size:8px;color:#8892b0;text-transform:uppercase;letter-spacing:0.6px}
+        .modal-stat .value{font-size:15px;font-weight:700;color:#f5a623;margin-top:3px}
+        .modal-stat .value.trophies{color:#ffd700}
+        .modal-stat .value.rank{color:#4ecdc4}
+        .modal-info-section{margin-top:12px;padding:12px;background:rgba(255,255,255,0.02);border-radius:14px;border:1px solid rgba(255,255,255,0.02)}
+        .modal-info-section .info-row{display:flex;justify-content:space-between;padding:3px 0;font-size:12px;color:#ccd6f6;border-bottom:1px solid rgba(255,255,255,0.02)}
+        .modal-info-section .info-row:last-child{border-bottom:none}
+        .modal-info-section .info-row .label{color:#8892b0}
+        .modal-info-section .info-row .value{color:#e6edf3;font-weight:500}
+        .modal-info-section .info-row .value.hours{color:#4ecdc4;font-weight:700}
+        .loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:300px;gap:14px;position:relative;z-index:1}
+        .spinner{width:38px;height:38px;border:3px solid rgba(255,215,0,0.06);border-top-color:#f5a623;border-radius:50%;animation:spin 0.9s linear infinite}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .loading p{color:#8892b0;font-size:13px;letter-spacing:0.5px}
+        .refresh-btn{margin-top:16px;width:100%;padding:12px;border:none;border-radius:40px;background:linear-gradient(135deg,#f5a623,#d4891b);color:#fff;font-weight:600;font-size:14px;letter-spacing:0.5px;cursor:pointer;transition:all 0.2s;position:relative;z-index:1;box-shadow:0 0 20px rgba(245,166,35,0.08)}
+        .refresh-btn:active{transform:scale(0.97)}
+        @media(max-width:420px){.club-name{font-size:20px}.club-badge{width:52px;height:52px;font-size:24px}.member-card{padding:8px 10px}.member-avatar{width:36px;height:36px;font-size:14px}.member-name{font-size:13px}.modal{padding:18px 14px 16px}.modal-avatar{width:60px;height:60px;font-size:24px}.modal-name{font-size:18px}.modal-stats-grid{gap:6px}.modal-stat{padding:8px 4px}.modal-stat .value{font-size:13px}.modal-info-section .info-row{font-size:11px}}
     </style>
 </head>
 <body>
-
     <div id="root" class="app">
-
         <div id="loading" class="loading">
             <div class="spinner"></div>
             <p>ЗАГРУЗКА БОЙЦОВ</p>
         </div>
-
         <div id="content" style="display:none;">
-
             <div class="club-header">
                 <div class="club-badge"></div>
                 <div class="club-name" id="clubName">—</div>
@@ -528,18 +88,14 @@
                     <div class="stat-item"><span id="clubRequired">0</span></div>
                 </div>
             </div>
-
             <div class="members-title">
                 БОЙЦЫ КЛУБА
                 <small id="memberCount">0</small>
             </div>
             <div class="member-list" id="memberList"></div>
-
             <button class="refresh-btn" id="refreshBtn">ОБНОВИТЬ</button>
         </div>
-
     </div>
-
     <div id="modalContainer"></div>
 
     <script>
@@ -643,4 +199,115 @@
 
             const infoRows = [
                 { label: 'Клуб', value: member.club?.name || '—' },
-                { label: 'Аккаунт создан', val
+                { label: 'Аккаунт создан', value: formatDate(member.created) },
+                { label: 'Уровень опыта', value: member.expLevel || '—' },
+                { label: 'Время в игре', value: formatHours(member.playTime), cls: 'hours' },
+                { label: 'Победы 3x3', value: member['3vs3Victories'] || '—' },
+                { label: 'Победы Соло', value: member.soloVictories || '—' },
+                { label: 'Победы Дуо', value: member.duoVictories || '—' },
+                { label: 'Трофеи (макс)', value: member.highestTrophies || '—' }
+            ];
+
+            modalContainer.innerHTML = `
+                <div class="modal-overlay" id="modalOverlay">
+                    <div class="modal">
+                        <button class="modal-close" id="modalClose">✕</button>
+                        <div class="modal-avatar-section">
+                            <div class="modal-avatar" style="border-color: ${role.color}">
+                                ${initials}
+                            </div>
+                            <div class="modal-name">${member.name}</div>
+                            <div class="modal-tag">${member.tag || '—'}</div>
+                            <div class="modal-role" style="color: ${role.color}">
+                                ${role.label}
+                            </div>
+                        </div>
+                        <div class="modal-divider"></div>
+                        <div class="modal-stats-grid">
+                            ${stats.map(s => `
+                                <div class="modal-stat">
+                                    <div class="label">${s.label}</div>
+                                    <div class="value ${s.cls}" ${s.color ? 'style="color:' + s.color + '"' : ''}>
+                                        ${s.value}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="modal-divider"></div>
+                        <div class="modal-info-section">
+                            ${infoRows.map(row => `
+                                <div class="info-row">
+                                    <span class="label">${row.label}</span>
+                                    <span class="value ${row.cls || ''}">${row.value}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('modalClose').addEventListener('click', closeModal);
+            document.getElementById('modalOverlay').addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) closeModal();
+            });
+        }
+
+        function closeModal() {
+            modalContainer.innerHTML = '';
+        }
+
+        async function fetchClub() {
+            try {
+                loading.style.display = 'flex';
+                content.style.display = 'none';
+                closeModal();
+
+                const cleanTag = CLUB_TAG.replace('#', '');
+                const url = 'https://api.allorigins.win/raw?url=https://api.brawlstars.com/v1/clubs/%23' + cleanTag;
+                const response = await fetch(url, {
+                    headers: { 'Authorization': 'Bearer ' + API_KEY }
+                });
+
+                if (!response.ok) throw new Error('HTTP ' + response.status);
+
+                const data = await response.json();
+
+                clubName.textContent = data.name || '—';
+                clubTag.textContent = '#' + (data.tag || '—');
+                clubTrophies.textContent = data.trophies ?? 0;
+                clubMembers.textContent = data.members?.length ?? 0;
+                clubRequired.textContent = data.requiredTrophies ?? 0;
+
+                renderMembers(data.members || []);
+
+                loading.style.display = 'none';
+                content.style.display = 'block';
+
+                createStars();
+
+            } catch (err) {
+                console.error('Ошибка загрузки:', err);
+                loading.innerHTML = `
+                    <div style="text-align:center;color:#ff6b6b;padding:20px;">
+                        <div style="font-size:36px;margin-bottom:10px;">X</div>
+                        <h3 style="font-size:18px;">КЛУБ НЕ НАЙДЕН</h3>
+                        <p style="color:#8892b0;font-size:13px;margin:6px 0;">Проверь тег: ${CLUB_TAG}</p>
+                        <button onclick="fetchClub()" style="margin-top:14px;padding:10px 28px;border:none;border-radius:40px;background:#f5a623;color:#fff;font-weight:600;font-size:14px;cursor:pointer;">ПОВТОРИТЬ</button>
+                    </div>
+                `;
+            }
+        }
+
+        function createStars() {
+            const colors = ['#f5a623', '#ff6b6b', '#4ecdc4', '#ffd93d', '#6c5ce7', '#ff9ff3'];
+            for (let i = 0; i < 16; i++) {
+                const star = document.createElement('div');
+                star.style.cssText = `
+                    position: fixed;
+                    width: ${5 + Math.random() * 8}px;
+                    height: ${5 + Math.random() * 8}px;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    border-radius: 50%;
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+       
