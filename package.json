@@ -1,6 +1,7 @@
 {
   "name": "rozik-api",
   "version": "1.0.0",
+  "type": "module",
   "description": "Brawl Stars API proxy",
   "main": "api/club.js",
   "scripts": {
