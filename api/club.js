@@ -14,8 +14,7 @@ app.get('/club', async (req, res) => {
     if (!tag) return res.status(400).json({ error: 'Tag required' });
 
     const cleanTag = tag.replace('#', '');
-    const url = `https://api.brawlstars.com/v1/clubs/%23${cleanTag}`;
-
+    const url = `https://bsproxy.royaleapi.dev/v1/clubs/%23${cleanTag}`;
     try {
         const response = await fetch(url, {
             headers: { 'Authorization': `Bearer ${API_KEY}` }
