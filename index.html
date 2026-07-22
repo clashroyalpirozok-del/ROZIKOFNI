@@ -1,36 +1,77 @@
-8px;padding:18px 14px 26px;border:1px solid rgba(255,215,0,0.06);position:relative;overflow:hidden}
-        .app::before{content:'';position:absolute;inset:0;background-image:radial-gradient(1px 1px at 15% 20%,rgba(255,255,255,0.2),transparent),radial-gradient(1px 1px at 35% 60%,rgba(255,255,255,0.15),transparent),radial-gradient(1px 1px at 70% 10%,rgba(255,255,255,0.2),transparent),radial-gradient(1px 1px at 90% 80%,rgba(255,255,255,0.15),transparent);background-size:200px 200px;pointer-events:none;z-index:0;animation:twinkle 5s ease-in-out infinite al<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>ROZIK OFF</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:Arial,sans-serif;background:#0b0e1a;color:#fff;display:flex;justify-content:center;padding:20px}
-        .app{max-width:450px;width:100%;background:#13182b;border-radius:20px;padding:20px;border:1px solid rgba(255,215,0,0.1)}
-        .club-name{color:#f5a623;font-size:24px;font-weight:700;text-align:center}
-        .club-tag{color:#8892b0;text-align:center;margin:5px 0 15px}
-        .member{background:rgba(255,255,255,0.03);border-radius:12px;padding:12px;margin:8px 0;display:flex;justify-content:space-between;border:1px solid rgba(255,215,0,0.05)}
-        .member-name{font-weight:600}
-        .member-trophies{color:#f5a623}
-        .role{font-size:11px;color:#8892b0;background:rgba(255,255,255,0.05);padding:2px 10px;border-radius:20px;display:inline-block;margin-top:4px}
-        .online{color:#00c853;font-size:12px}
-        .loading{text-align:center;padding:40px 0;color:#8892b0}
-        .spinner{width:30px;height:30px;border:3px solid rgba(255,215,0,0.1);border-top-color:#f5a623;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 10px}
+        body{font-family:-apple-system,'Segoe UI',system-ui,sans-serif;background:#0a0e1a;color:#fff;min-height:100vh;display:flex;justify-content:center;padding:12px}
+        .app{max-width:420px;width:100%;background:linear-gradient(160deg,#111827,#0a0e1a);border-radius:28px;padding:20px 16px 24px;border:1px solid rgba(255,215,0,0.06);position:relative;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.6)}
+        .app::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(255,215,0,0.03),transparent 70%);pointer-events:none;z-index:0}
+        .header{position:relative;z-index:1;text-align:center;padding:8px 0 16px;border-bottom:1px solid rgba(255,215,0,0.06)}
+        .header-icon{width:64px;height:64px;margin:0 auto 8px;background:linear-gradient(135deg,#f7c948,#d4891b);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 0 30px rgba(255,215,0,0.15);border:2px solid rgba(255,215,0,0.15)}
+        .header-name{font-size:24px;font-weight:800;background:linear-gradient(135deg,#f7c948,#f5a623);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:0.5px}
+        .header-tag{font-size:12px;color:#6b7280;letter-spacing:1px;margin-top:2px;font-weight:500}
+        .header-stats{display:flex;justify-content:center;gap:16px;margin-top:10px}
+        .header-stats .stat{background:rgba(255,255,255,0.03);padding:4px 14px;border-radius:30px;font-size:11px;color:#9ca3af;border:1px solid rgba(255,255,255,0.03)}
+        .header-stats .stat span{color:#f5a623;font-weight:700}
+        .section-title{position:relative;z-index:1;font-size:14px;font-weight:600;color:#d1d5db;margin:16px 0 10px;display:flex;align-items:center;gap:8px;letter-spacing:0.5px}
+        .section-title small{font-weight:400;font-size:11px;color:#6b7280;margin-left:auto}
+        .member-list{position:relative;z-index:1;display:flex;flex-direction:column;gap:6px;max-height:460px;overflow-y:auto;padding-right:2px}
+        .member-list::-webkit-scrollbar{width:2px}
+        .member-list::-webkit-scrollbar-thumb{background:#f5a623;border-radius:10px}
+        .member-card{background:rgba(255,255,255,0.02);border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:12px;border:1px solid rgba(255,215,0,0.03);transition:all 0.2s;cursor:pointer}
+        .member-card:active{transform:scale(0.97);background:rgba(255,215,0,0.04)}
+        .member-avatar{width:38px;height:38px;border-radius:50%;border:2px solid rgba(255,215,0,0.12);flex-shrink:0;background:linear-gradient(135deg,#1a1f33,#0f1425);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#f5a623}
+        .member-info{flex:1;min-width:0}
+        .member-name{font-size:13px;font-weight:600;color:#e5e7eb;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+        .member-role{font-size:8px;font-weight:600;padding:1px 8px;border-radius:30px;background:rgba(255,215,0,0.08);color:#f5a623;text-transform:uppercase;letter-spacing:0.3px}
+        .member-role.president{background:rgba(255,215,0,0.15);color:#ffd700}
+        .member-role.vice{background:rgba(255,107,107,0.12);color:#ff6b6b}
+        .member-role.senior{background:rgba(78,205,196,0.12);color:#4ecdc4}
+        .member-role.member{background:rgba(149,225,211,0.08);color:#95e1d3}
+        .member-trophies{font-size:11px;color:#6b7280}
+        .member-trophies span{color:#f5a623;font-weight:600}
+        .member-status{display:flex;align-items:center;gap:4px}
+        .online-dot{width:6px;height:6px;border-radius:50%;background:#00c853;box-shadow:0 0 8px #00c85344;animation:pulse-dot 2s ease-in-out infinite}
+        @keyframes pulse-dot{0%,100%{opacity:0.4;transform:scale(0.9)}50%{opacity:1;transform:scale(1.2)}}
+        .refresh-btn{position:relative;z-index:1;width:100%;padding:12px;margin-top:16px;border:none;border-radius:40px;background:linear-gradient(135deg,#f5a623,#d4891b);color:#fff;font-weight:700;font-size:13px;letter-spacing:0.5px;cursor:pointer;transition:all 0.2s;box-shadow:0 0 20px rgba(245,166,35,0.08)}
+        .refresh-btn:active{transform:scale(0.97)}
+        .footer-status{text-align:center;font-size:10px;color:#4b5563;margin-top:12px;letter-spacing:0.5px}
+        .footer-status .live{color:#00c853}
+        .loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:320px;gap:14px;position:relative;z-index:1}
+        .spinner{width:32px;height:32px;border:3px solid rgba(255,215,0,0.06);border-top-color:#f5a623;border-radius:50%;animation:spin 0.9s linear infinite}
         @keyframes spin{to{transform:rotate(360deg)}}
-        .refresh-btn{width:100%;padding:12px;border:none;border-radius:40px;background:#f5a623;color:#fff;font-weight:700;font-size:14px;cursor:pointer;margin-top:16px}
-        .status{text-align:center;font-size:11px;color:#555;margin-top:12px}
-        .error-box{background:rgba(255,0,0,0.1);border:1px solid rgba(255,0,0,0.2);border-radius:12px;padding:12px;margin-top:12px;font-size:12px;color:#ff6b6b;white-space:pre-wrap;word-break:break-all}
+        .loading p{color:#6b7280;font-size:12px;letter-spacing:0.5px}
+        .error{color:#ef4444;text-align:center;padding:20px 0;font-size:13px;position:relative;z-index:1}
+        .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;z-index:999;padding:16px;animation:fadeIn 0.2s ease}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        .modal{background:linear-gradient(160deg,#1a1f33,#0d1020);border-radius:24px;max-width:360px;width:100%;padding:24px 20px;border:1px solid rgba(255,215,0,0.06);box-shadow:0 0 60px rgba(0,0,0,0.6);animation:slideUp 0.25s ease}
+        @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+        .modal-close{float:right;background:rgba(255,255,255,0.03);border:none;color:#6b7280;font-size:18px;cursor:pointer;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+        .modal-close:hover{background:rgba(255,255,255,0.06);color:#fff}
+        .modal-avatar{width:68px;height:68px;border-radius:50%;border:3px solid #f5a623;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;background:#0b0e1a;color:#f5a623}
+        .modal-name{font-size:20px;font-weight:700;text-align:center;color:#e5e7eb}
+        .modal-tag{text-align:center;font-size:12px;color:#6b7280;margin:2px 0 8px;letter-spacing:0.5px}
+        .modal-role{text-align:center;font-size:13px;color:#f5a623;font-weight:600}
+        .modal-divider{height:1px;background:linear-gradient(to right,transparent,rgba(255,215,0,0.06),transparent);margin:14px 0}
+        .modal-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+        .modal-stat{background:rgba(255,255,255,0.02);border-radius:12px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,0.02)}
+        .modal-stat .label{font-size:8px;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px}
+        .modal-stat .value{font-size:16px;font-weight:700;color:#f5a623;margin-top:2px}
+        .modal-stat .value.trophies{color:#ffd700}
     </style>
 </head>
 <body>
 <div class="app" id="app">
-    <div id="loading">
+    <div id="loading" class="loading">
         <div class="spinner"></div>
-        <div class="loading">LOADING...</div>
+        <p>LOADING CLUB DATA...</p>
     </div>
     <div id="content" style="display:none;"></div>
+    <div id="error" style="display:none;" class="error"></div>
+    <div id="modalContainer"></div>
 </div>
 
 <script>
@@ -38,76 +79,140 @@ const CLUB_TAG = '#29QLUYOPO';
 
 const loading = document.getElementById('loading');
 const content = document.getElementById('content');
+const error = document.getElementById('error');
+const modalContainer = document.getElementById('modalContainer');
 
-function getRoleLabel(role) {
+function getRoleInfo(role) {
     const map = {
-        president: 'President',
-        vicePresident: 'Vice President',
-        senior: 'Senior',
-        member: 'Member'
+        'president': { label: 'President', cls: 'president' },
+        'vicePresident': { label: 'Vice President', cls: 'vice' },
+        'senior': { label: 'Senior', cls: 'senior' },
+        'member': { label: 'Member', cls: 'member' }
     };
-    return map[role] || 'Member';
+    return map[role] || { label: role || 'Member', cls: 'member' };
+}
+
+function getInitials(name) {
+    if (!name || name === '—') return '?';
+    const parts = name.trim().split(' ');
+    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
 
 function renderClub(data) {
     const members = data.members || [];
-    const sorted = [...members].sort((a, b) => {
-        const order = { president: 0, vicePresident: 1, senior: 2, member: 3 };
-        return (order[a.role] ?? 3) - (order[b.role] ?? 3);
+    content.innerHTML = `
+        <div class="header">
+            <div class="header-icon">⚔️</div>
+            <div class="header-name">${data.name || '—'}</div>
+            <div class="header-tag">${data.tag || '—'}</div>
+            <div class="header-stats">
+                <div class="stat">🏆 <span>${data.trophies ?? 0}</span></div>
+                <div class="stat">👥 <span>${members.length}</span></div>
+                <div class="stat">🏅 <span>${data.requiredTrophies ?? 0}</span>+</div>
+            </div>
+        </div>
+        <div class="section-title">
+            PLAYERS
+            <small>${members.length}</small>
+        </div>
+        <div class="member-list">
+            ${members.map((m, idx) => {
+                const role = getRoleInfo(m.role);
+                const initials = getInitials(m.name);
+                return `
+                    <div class="member-card" data-index="${idx}">
+                        <div class="member-avatar">${initials}</div>
+                        <div class="member-info">
+                            <div class="member-name">
+                                ${m.name || '—'}
+                                <span class="member-role ${role.cls}">${role.label}</span>
+                            </div>
+                            <div class="member-trophies">🏆 <span>${m.trophies || 0}</span></div>
+                        </div>
+                        <div class="member-status">
+                            <div class="online-dot"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('')}
+        </div>
+        <button class="refresh-btn" onclick="fetchClub()">↻ REFRESH</button>
+        <div class="footer-status"><span class="live">● LIVE DATA</span></div>
+    `;
+
+    document.querySelectorAll('.member-card').forEach(el => {
+        const idx = parseInt(el.dataset.index);
+        el.addEventListener('click', () => {
+            const member = members[idx];
+            if (member) openModal(member);
+        });
     });
 
-    content.innerHTML = `
-        <div style="text-align:center;padding-bottom:12px;border-bottom:1px solid rgba(255,215,0,0.06);margin-bottom:16px">
-            <div style="font-size:40px;margin-bottom:4px">⚔️</div>
-            <div class="club-name">${data.name || '—'}</div>
-            <div class="club-tag">#${data.tag || '—'}</div>
-            <div style="display:flex;justify-content:center;gap:16px;margin-top:10px;font-size:13px;color:#8892b0">
-                <span>Trophies <span style="color:#f5a623;font-weight:600">${data.trophies ?? 0}</span></span>
-                <span>Members <span style="color:#f5a623;font-weight:600">${members.length}</span></span>
-                <span>Required <span style="color:#f5a623;font-weight:600">${data.requiredTrophies ?? 0}</span>+</span>
-            </div>
-        </div>
-        <div style="font-size:14px;font-weight:600;color:#ccd6f6;margin-bottom:10px">
-            PLAYERS <span style="font-weight:400;color:#8892b0;font-size:12px">${members.length}</span>
-        </div>
-        ${sorted.map(m => `
-            <div class="member">
-                <div>
-                    <div class="member-name">${m.name || '—'}</div>
-                    <span class="role">${getRoleLabel(m.role)}</span>
-                </div>
-                <div style="text-align:right">
-                    <div class="member-trophies">${m.trophies || 0}</div>
-                    <span class="online">● Online</span>
-                </div>
-            </div>
-        `).join('')}
-        <button class="refresh-btn" onclick="fetchClub()">REFRESH</button>
-        <div class="status">${data._source || 'DEMO MODE'}</div>
-        ${data._error ? '<div class="error-box">' + data._error + '</div>' : ''}
-    `;
     loading.style.display = 'none';
     content.style.display = 'block';
+    error.style.display = 'none';
+}
+
+function openModal(member) {
+    const role = getRoleInfo(member.role);
+    const initials = getInitials(member.name);
+    modalContainer.innerHTML = `
+        <div class="modal-overlay" id="modalOverlay">
+            <div class="modal">
+                <button class="modal-close" id="modalClose">✕</button>
+                <div class="modal-avatar">${initials}</div>
+                <div class="modal-name">${member.name || '—'}</div>
+                <div class="modal-tag">${member.tag || '—'}</div>
+                <div class="modal-role">${role.label}</div>
+                <div class="modal-divider"></div>
+                <div class="modal-stats">
+                    <div class="modal-stat">
+                        <div class="label">Trophies</div>
+                        <div class="value trophies">${member.trophies || 0}</div>
+                    </div>
+                    <div class="modal-stat">
+                        <div class="label">Role</div>
+                        <div class="value" style="font-size:14px;">${role.label}</div>
+                    </div>
+                    <div class="modal-stat">
+                        <div class="label">ID</div>
+                        <div class="value" style="font-size:11px;">${member.tag || '—'}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    document.getElementById('modalClose').addEventListener('click', () => modalContainer.innerHTML = '');
+    document.getElementById('modalOverlay').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) modalContainer.innerHTML = '';
+    });
 }
 
 async function fetchClub() {
-    loading.style.display = 'block';
+    loading.style.display = 'flex';
     content.style.display = 'none';
+    error.style.display = 'none';
+    modalContainer.innerHTML = '';
 
     try {
         const cleanTag = CLUB_TAG.replace('#', '');
-        const response = await fetch('https://bsproxy.royaleapi.dev/v1/clubs/%23' + cleanTag);
-        
-        if (!response.ok) throw new Error('HTTP ' + response.status);
-        
+        const response = await fetch(`/api/club?tag=${cleanTag}`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
-        data._source = 'LIVE DATA';
+        if (data.error) throw new Error(data.error);
         renderClub(data);
     } catch (err) {
-        const demoData = {
-            name: 'ROZIK OFF',
-            tag: '29QLUYOPO',
-            trophies: 150000,
+        loading.style.display = 'none';
+        error.style.display = 'block';
+        error.textContent = '⚠️ ' + err.message;
+    }
+}
+
+fetchClub();
+</script>
+</body>
+</html>            trophies: 150000,
             requiredTrophies: 10000,
             members: [
                 { name: 'President', tag: '#1', trophies: 30000, role: 'president' },
